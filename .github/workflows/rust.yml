@@ -33,16 +33,10 @@ jobs:
           components: clippy, rustfmt
 
       - name: Check formatting
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: -- --check
+        run: cargo fmt -- --check
 
       - name: Lint with Clippy
-        uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: -- -D warnings
+        run: cargo clippy --all-targets --all-features -- -D warnings
 
       # run the build
       - name: Build
