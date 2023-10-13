@@ -38,7 +38,7 @@ jobs:
         run: mv ./target/release/request-header-parser-microservice ./app/axum
 
       # heroku deployment
-      - uses: akhileshns/heroku-deploy@v3.12.12
+      - uses: akhileshns/heroku-deploy@v3.12.14
         with:
           # key from repository secrets
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
