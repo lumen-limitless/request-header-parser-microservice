@@ -43,9 +43,9 @@ jobs:
           # key from repository secrets
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           # name of the Heroku app
-          heroku_app_name: 'axum-demo-try2'
+          heroku_app_name: 'request-header-parser-microser'
           # email from which the app is uploaded
-          heroku_email: 'anshulgoel151999@gmail.com'
+          heroku_email: 'lumenlimitless@gmail.com'
 
           # app directory
           appdir: './app'
