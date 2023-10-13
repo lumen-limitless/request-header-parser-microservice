@@ -1,5 +1,5 @@
 # name of the workflow
-name: Rust
+name: Rust CI/CD
 
 # run workflow when the condition is met
 on:
@@ -24,10 +24,35 @@ jobs:
     steps:
       # this will get the code and set the git
       - uses: actions/checkout@v3
+
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          components: clippy, rustfmt
+
+      - name: Check formatting
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: -- --check
+
+      - name: Lint with Clippy
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: -- -D warnings
+
       # run the build
       - name: Build
         # using cargo to build
         run: cargo build --release
+
+      # run the tests
+      - name: Test
+        # using cargo to test
+        run: cargo test
 
       # for deployment
       - name: make dir
@@ -45,7 +70,7 @@ jobs:
           # name of the Heroku app
           heroku_app_name: 'request-header-parser-microser'
           # email from which the app is uploaded
-          heroku_email: 'lumenlimitless@gmail.com'
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
 
           # app directory
           appdir: './app'
